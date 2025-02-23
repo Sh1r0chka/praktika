@@ -1,0 +1,56 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/reg.css' %}">
+    <title>Регистрация</title>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="bar">
+            <div class="logo">
+                <h1><a href="{% url 'index' %}">VOLVO TRUCK</a></h1>
+            </div>
+            <div class="buttons">
+                <button><h3><a href="{% url 'login' %}">Авторизация</a></h3></button>
+            </div>
+        </div>
+
+        <div class="line"></div>
+
+        <div class="text"><h1>Регистрация нового пользователя</h1></div>
+
+        <form method="POST" class="signup-form my-form">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="form-block">
+                <div class="b-reg">
+                    <button class="btn"><h3>Зарегистрироваться</h3></button>
+                </div>
+                <div class="form-button">
+                    <p>Есть аккаунт? <a href="{% url 'login' %}">Авторизация</a></p>
+                </div>
+            </div>
+        </form>
+
+        <!-- Подвал -->
+        <div class="footer">
+            <div class="logo">
+                <h1>VOLVO TRUCK</h1>
+            </div>
+            <div class="img2">
+                <h2>Volvo@gmail.com</h2>
+            </div>
+            <div class="img3">
+                <h2>+7 (968) 714-4502</h2>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

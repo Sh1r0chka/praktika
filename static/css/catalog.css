@@ -1,0 +1,433 @@
+* {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f9f9f9;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Основные стили для страницы */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* Контейнер для основного контента и подвала */
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Шапка */
+.bar {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #333;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.logo h1 a {
+    color: #ffcc00;
+    text-decoration: none;
+    font-size: 36px;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.logo h1 a:hover {
+    color: #e6b800;
+}
+
+.buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.buttons button {
+    width: 150px;
+    height: 50px;
+    border-radius: 25px;
+    border: 2px solid #ffcc00;
+    background-color: transparent;
+    color: #ffcc00;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.buttons button:hover {
+    background-color: #ffcc00;
+    color: white;
+    transform: translateY(-2px);
+}
+
+.buttons button a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Фильтр товаров */
+.filter-section {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+.filter-dropdown {
+    margin-bottom: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    background-color: white;
+}
+
+.filter-dropdown[open] {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.filter-summary {
+    padding: 15px 20px;
+    background-color: #ffcc00;
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    list-style: none;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.filter-summary:hover {
+    background-color: #e6b800;
+    transform: translateY(-2px);
+}
+
+.filter-summary::marker {
+    display: none;
+}
+
+.filter-summary::-webkit-details-marker {
+    display: none;
+}
+
+.filter-form {
+    padding: 20px;
+    background-color: white;
+}
+
+.filter-group {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.filter-group label {
+    display: block;
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.filter-group select,
+.filter-group input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    background-color: #f9f9f9;
+}
+
+.filter-group select:focus,
+.filter-group input:focus {
+    border-color: #ffcc00;
+    box-shadow: 0 0 8px rgba(255, 204, 0, 0.3);
+}
+
+/* Стили для выпадающего списка категорий */
+.category-dropdown {
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.category-summary {
+    padding: 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+    list-style: none;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.category-summary::after {
+    content: "▼";
+    font-size: 12px;
+    color: #666;
+    transition: transform 0.3s ease;
+}
+
+.category-dropdown[open] .category-summary::after {
+    transform: rotate(180deg);
+}
+
+.category-summary:hover {
+    border-color: #ffcc00;
+    background-color: #fff;
+}
+
+.category-summary::marker {
+    display: none;
+}
+
+.category-summary::-webkit-details-marker {
+    display: none;
+}
+
+.category-options {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    padding: 10px;
+    background-color: white;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.category-dropdown[open] .category-options {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.category-options select {
+    width: 100%;
+    padding: 8px;
+    border: none;
+    background-color: transparent;
+    font-size: 14px;
+    outline: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    background-size: 12px;
+}
+
+/* Стили для кнопок фильтра */
+.filter-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background-color: #ffcc00;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #e6b800;
+    transform: translateY(-2px);
+}
+
+.btn-reset {
+    background-color: #e0e0e0;
+    color: #333;
+}
+
+.btn-reset:hover {
+    background-color: #ccc;
+    transform: translateY(-2px);
+}
+
+/* Блоки товаров */
+.tovars {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Стили для карточек товаров */
+.tovars__line {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+    .tovars__line {
+        grid-template-columns: 1fr;
+    }
+}
+
+.tovar-block {
+    background: white;
+    border-radius: 12px;
+    padding: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    text-align: center;
+    height: 320px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid #e0e0e0;
+}
+
+.tovar-block:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    background: white;
+}
+
+.tovar-block__image {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.tovar-block__image img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+.tovar-block h3 {
+    margin: 5px 0;
+    font-size: 18px;
+    color: #333;
+    height: 40px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.tovar-block h3 a {
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.3s ease;
+}
+
+.tovar-block h3 a:hover {
+    color: #ffcc00;
+}
+
+.tovar-block p {
+    margin: 2px 0;
+    font-size: 14px;
+    color: #666;
+    height: 40px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.tovar-price {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin: 5px 0;
+}
+
+.tovar-button {
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: 2px solid #ffcc00;
+    background-color: transparent;
+    color: #ffcc00;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.tovar-button:hover {
+    background-color: #ffcc00;
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Подвал */
+.footer {
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    margin-top: auto;
+}
+
+.footer .logo h1 {
+    color: #ffcc00;
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.footer .contact-info {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 10px;
+}
+
+.footer .contact-info h3 {
+    font-size: 18px;
+    margin: 5px 0;
+}
+
+.footer .contact-info h3 a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer .contact-info h3 a:hover {
+    color: #ffcc00;
+}

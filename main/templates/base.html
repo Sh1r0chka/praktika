@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <title> {% block title %}{% endblock %}</title>
+</head>
+
+<body>
+<header>
+    <div class="container header-container">
+        <div class="logo linear-wipe">
+            <h1>VOLVO TRUCK</h1>
+        </div>
+    </div>
+</header>
+<div class="content">
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,167 @@
+* {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #1E4959;
+}
+
+.bar {
+    margin-top: 15px;
+}
+
+.logo {
+    color: #EEEEEE;
+    font-size: 32px;
+    margin-left: 240px;
+}
+
+.buttons {
+    margin-left: 1240px;
+    margin-top: -80px;
+    display: flex;
+    gap: 20px;
+}
+
+.buttons button {
+    width: 210px;
+    height: 70px;
+    border-radius: 20px;
+    border: none;
+    background-color: #EEEEEE;
+    color: #1E4959;
+    font-size: 18px;
+}
+
+a {
+  text-decoration: none;
+  color: #1E4959;
+}
+
+.line {
+    width: 1720px;
+    height: 10px;
+    background-color: #EEEEEE;
+    margin-top: 15px;
+    margin-left: 100px;
+}
+
+.line-2 {
+    width: 1720px;
+    height: 10px;
+    background-color: #EEEEEE;
+    margin-top: 100px;
+    margin-left: 100px;
+}
+
+.form-block {
+    width: 1440px;
+    height: 450px;
+    margin-left: 240px;
+    margin-top: 30px;
+    background-color: rgba(0, 0, 0, 0.40);
+    border-radius: 20px;
+    margin-bottom: 130px;
+    position: absolute;
+}
+
+.forms-1 {
+    margin-left: 510px;
+    margin-top: 50px;
+    display: flex;
+    gap: 45px;
+}
+
+.forms-1 input {
+    width: 420px;
+    height: 70px;
+    background-color: #EEEEEE;
+    border: black solid 2px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.forms-2 {
+    margin-left: 510px;
+    margin-top: 30px;
+    display: flex;
+    gap: 45px;
+}
+
+.forms-2 input {
+    width: 420px;
+    height: 170px;
+    background-color: #EEEEEE;
+    border: black solid 2px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.form-img {
+    margin-left: 270px;
+    margin-top: 30px;
+}
+
+.b-reg {
+    margin-top: 40px;
+    margin-left: 600px;
+}
+
+.b-reg button {
+    width: 240px;
+    height: 50px;
+    background-color: #EEEEEE;
+    border: none;
+    color: #1E4959;
+    border-radius: 20px;
+    font-size: 16px;
+}
+
+.form-button {
+    color: #EEEEEE;
+    font-size: 18px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.form-button button {
+    color: #EEEEEE;
+    background: none;
+    border: none;
+    padding-left: 10px;
+}
+
+.img2 {
+    color: #EEEEEE;
+    font-size: 16px;
+    margin-left: 238px;
+}
+
+.img2 h2 {
+    padding-left: 80px;
+    margin-top: -55px;
+}
+
+.img3 {
+    color: #EEEEEE;
+    font-size: 16px;
+    margin-left: 570px;
+    margin-top: -50px;
+}
+
+.img3 h2 {
+    padding-left: 60px;
+    margin-top: -50px;
+}
+
+.text {
+    color: #EEEEEE;
+    font-size: 18px;
+    margin-top: 30px;
+    text-align: center;
+}

@@ -1,0 +1,114 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+
+.black-btn {
+  border: none;
+  color: white;
+  padding: 10px;
+  background-color: black;
+  cursor: pointer;
+}
+.edit-link {
+  color: rgb(255, 0, 0);
+  cursor: pointer;
+  float: right;
+}
+
+.container {
+  width: 1060px;
+  margin: 0 auto;
+}
+
+a {
+  text-decoration: none;
+}
+
+header {
+  background-color: rgb(0, 0, 0);
+  display: flex;
+  height: 60px;
+  color: white;
+}
+
+.header-container {
+  display: grid;
+  grid-template-columns: auto 20% auto;
+  align-items: center;
+}
+
+.header-container nav {
+  justify-self: end;
+  display: flex;
+}
+
+.header-container nav p {
+  margin-left: 10px;
+}
+
+.header-container .create-btn {
+  background-color: rgb(125, 240, 125);
+  border-radius: 30px;
+  padding: 10px;
+  justify-self: center;
+}
+
+.header-container .create-btn a {
+  color: black;
+}
+
+.header-container a {
+  color: rgb(189, 189, 189);
+}
+.logo a {
+  color: white;
+}
+
+.logo h1{
+    transition: all 1s;
+}
+
+.logo h1:hover {
+  background: linear-gradient(
+    to right,
+    #ffffff 20%,
+    #fa0000 30%,
+    #12cd01 70%,
+    #b13030 80%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-fill-color: transparent;
+  background-size: 500% auto;
+  animation: textShine 5s ease-in-out infinite alternate;
+}
+
+@keyframes textShine {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 100% 50%;
+    }
+}
+
+/*  */
+.ticket-table {
+  border: 1px solid black;
+  border-collapse: collapse;
+  width: 100%;
+}
+.ticket-table tr,
+td,
+th {
+  border: 1px solid black;
+  padding: 5px;
+}
+.ticket-table th {
+  background-color: rgb(0, 0, 0);
+  color: white;
+}

@@ -1,0 +1,133 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Городской портал "Сделаем лучше вместе!"</title>
+        <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    </head>
+    <body>
+        <!-- Баннер -->
+        <header class="banner">
+            <div class="banner-overlay"></div>
+            <div class="banner-content">
+                <!-- Логотип -->
+                <div class="logo">
+                    <img src="{% static 'image/logo.png' %}" alt="Логотип" width="160" height="120">
+                </div>
+
+                <!-- Кнопки для авторизации/регистрации или выхода -->
+                <div class="auth-buttons">
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'logout' %}" class="auth-btn">Выйти</a>
+                    {% else %}
+                        <a href="{% url 'signup' %}" class="auth-btn">Регистрация</a>
+                        <a href="{% url 'login' %}" class="auth-btn">Авторизация</a>
+                    {% endif %}
+                </div>
+
+                <!-- Основной контент баннера -->
+                <h1>ГОРОДСКОЙ ПОРТАЛ</h1>
+                <h1>"СДЕЛАЕМ ЛУЧШЕ ВМЕСТЕ!"</h1>
+                <p>Нашли проблему в городе? Оставляйте заявку, и мы разберемся!</p>
+                <a href="{% url 'add-ticket' %}" class="btn">Оставить заявку</a>
+            </div>
+        </header>
+
+        <!-- Меню -->
+        <nav class="menu">
+            <a href="#" class="menu-item">О проекте</a>
+            <a href="#" class="menu-item">Оставить заявку</a>
+            <a href="#" class="menu-item">Ваш профиль</a>
+        </nav>
+
+        <!-- Шаги для заявки -->
+        <section class="steps">
+            <div class="step">
+                <img src="{% static 'image/img1.png' %}" alt="Шаг 1" width="40" height="40">
+                <h2>Оформление заявки</h2>
+                <p>Заполните форму заявки, добавьте фотографии и отправьте её нам.</p>
+            </div>
+            <div class="step">
+                <img src="{% static 'image/img2.png' %}" alt="Шаг 2" width="40" height="40">
+                <h2>Подтверждение заявки</h2>
+                <p>Дождитесь окончания проверки заявки модерацией портала.</p>
+            </div>
+            <div class="step">
+                <img src="{% static 'image/img3.png' %}" alt="Шаг 3`" width="40" height="40">
+                <h2>Отслеживание статуса</h2>
+                <p>В личном кабинете вы можете отслеживать статусы всех своих заявок.</p>
+            </div>
+        </section>
+
+        <!-- Баннер "О проекте" -->
+        <section class="about-banner">
+            <div class="about-content">
+                <h1>Помоги нам сделать город лучше!</h1>
+                <div class="line"></div>
+                <p>Городской портал “Сделаем лучше вместе!” создан, чтобы жители могли быстро и удобно сообщать о проблемах в городе.
+                    Мы помогаем сделать город чище, безопаснее и комфортнее для всех. Портал объединяет горожан и городские службы, ускоряя решение проблем.</p>
+                <p>Подать заявку очень просто. Просто заполните все информационные поля в форме и прикрепите фотографии.
+                    Вы можете отслеживать ход рассмотрения заявки прямо на портале.</p>
+                <a href="{% url 'add-ticket' %}" class="btn">Оставить заявку</a>
+            </div>
+        </section>
+
+        <!-- Счётчик ликвидированных проблем -->
+        <div class="container">
+            <div class="text-section">
+                <h1>Ликвидированные проблемы</h1>
+                <p>Это счётчик решённых, благодаря вам, проблем в нашем городе.</p>
+            </div>
+            <div class="counter-section">
+                <div id="counter">{{ closed_tickets_count }}</div>
+            </div>
+        </div>
+
+        <script src="script.js"></script>
+
+        <!-- Последние ликвидации -->
+        <section class="latest-problems">
+            <h2>Последние ликвидации</h2>
+            <div class="problems-list">
+                {% for problem in problems %}
+                    <div class="problem">
+                        <!-- Левый блок: ID тикета и дата -->
+                        <div class="problem-header">
+                            <span class="ticket-id">№ {{ problem.id }} - {{ problem.created_at|date:"d.m.Y" }}</span>
+                        </div>
+                        <!-- Основной текст -->
+                        <div class="problem-content">
+                            <h3>{{ problem.title }}</h3>
+                            <p>{{ problem.description }}</p>
+                        </div>
+                        <!-- Правая картинка -->
+                        <div class="problem-image">
+                            <!-- Выводим фото, если оно есть -->
+                            <img src="{{ problem.photo.url }}" alt="Фото проблемы" width="560" height="300">
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <a href="{% url 'add-ticket' %}" class="btn">Оставить заявку</a>
+        </section>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <!-- Логотип и копирайт -->
+                <div class="footer-logo">
+                    <img src="{% static 'image/logo.png' %}" alt="Логотип">
+                    <p class="copyright">©СЛВ 2022-2025</p>
+                </div>
+
+                <!-- Контактная информация -->
+                <div class="footer-contact">
+                    <p>clv@gmail.com</p>
+                    <p>+7 (968) 714-4502</p>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

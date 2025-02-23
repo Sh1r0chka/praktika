@@ -1,0 +1,360 @@
+/* Общие стили */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    background-color: #E3E3E3;
+    height: 100vh;
+    max-height: 1080px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Новое меню */
+.new-menu {
+    background: #95B184;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.menu-content {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
+.logo img {
+    width: 100px;
+    height: 75px;
+}
+
+.menu-buttons {
+    display: flex;
+    gap: 20px;
+    flex: 1;
+    justify-content: center;
+}
+
+.menu-btn {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 25px;
+    transition: background 0.3s ease;
+}
+
+.menu-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.auth-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.auth-btn {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 25px;
+    transition: background 0.3s ease;
+}
+
+.auth-btn:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+/* Основной контейнер */
+.wrapper {
+    max-width: 1440px;
+    margin: 20px auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.text h1 {
+    font-size: 36px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.form-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    gap: 40px;
+}
+
+.signup-form {
+    flex: 1;
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.signup-form p {
+    margin-bottom: 20px;
+}
+
+.signup-form label {
+    font-size: 18px;
+    color: #333;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.signup-form input,
+.signup-form textarea,
+.signup-form select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.signup-form button {
+    width: 100%;
+    padding: 15px;
+    font-size: 18px;
+    background: #95B184;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.signup-form button:hover {
+    background: #7a9970;
+}
+
+/* Контейнер для формы и счётчика */
+.form-container {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    width: 100%;
+}
+
+/* Стили для контейнера счётчика */
+.container {
+    width: 100%;
+    max-width: 1440px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Стили для счётчика */
+.counter-square {
+    width: 300px;
+    height: 300px;
+    background: white;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.counter-content h2 {
+    font-size: 24px;
+    color: #95B184;
+    margin-bottom: 20px;
+}
+
+#counter {
+    font-size: 72px;
+    font-weight: bold;
+    color: #95B184;
+    margin-bottom: 20px;
+}
+
+.counter-content p {
+    font-size: 16px;
+    color: #666;
+}
+
+/* Стили для текстового блока */
+.text-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px; /* Расстояние между элементами */
+}
+
+.text-section h1 {
+    font-size: 32px;
+    color: #333;
+    margin: 0;
+}
+
+.text-section p {
+    font-size: 18px;
+    color: #666;
+    margin: 0;
+}
+
+/* Стили для счётчика */
+#counter {
+    font-size: 72px;
+    font-weight: bold;
+    color: #95B184;
+    margin-top: 20px; /* Отступ сверху */
+}
+
+/* Стили для формы */
+.signup-form {
+    flex: 1;
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.signup-form p {
+    margin-bottom: 10px;
+}
+
+.signup-form label {
+    font-size: 18px;
+    color: #333;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.signup-form input,
+.signup-form textarea,
+.signup-form select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.signup-form button {
+    width: 100%;
+    padding: 15px;
+    font-size: 18px;
+    background: #95B184;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.signup-form button:hover {
+    background: #7a9970;
+}
+
+/* Стили для флажка согласия */
+.consent-checkbox {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.consent-checkbox input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.consent-checkbox label {
+    font-size: 16px;
+    color: #333;
+    cursor: pointer;
+}
+
+/* Основные стили для подвала */
+.footer {
+    width: 100%;
+    min-height: 180px;
+    background: url('../image/footer.png') no-repeat center center/cover;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    padding: 20px 0;
+}
+
+/* Затемнение фона */
+.footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+/* Контент подвала */
+.footer-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    text-align: center;
+}
+
+/* Логотип и копирайт */
+.footer-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.footer-logo img {
+    width: 100px;
+    height: 75px;
+}
+
+.copyright {
+    font-size: 12px;
+    color: #fff;
+    margin-top: 10px;
+}
+
+/* Контактная информация */
+.footer-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-size: 24px;
+}
+
+.footer-contact p {
+    margin: 0;
+}

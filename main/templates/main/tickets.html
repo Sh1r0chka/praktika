@@ -1,0 +1,84 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/ticket.css' %}">
+    <title>{% block title %}{% endblock %}</title>
+</head>
+
+<body>
+    <div class="wrapper">
+        <!-- Шапка -->
+        <header class="bar">
+            <div class="logo">
+                <h1><a href="{% url 'index' %}">VOLVO TRUCK</a></h1>
+            </div>
+            <div class="buttons">
+                {% if user.is_authenticated %}
+                    <button><a href="{% url 'index' %}">Главная</a></button>
+                    <button><a href="{% url 'logout' %}">Выйти</a></button>
+                {% else %}
+                    <button><a href="{% url 'login' %}">Авторизация</a></button>
+                    <button><a href="{% url 'signup' %}">Регистрация</a></button>
+                {% endif %}
+            </div>
+        </header>
+
+        <!-- Основной контент -->
+        <main class="content">
+            <div class="line"></div>
+            <div class="text">
+                <h1>Заявки</h1>
+            </div>
+
+            <!-- Список заказов -->
+            <div class="tickets-list">
+                {% for elem in tickets %}
+                <div class="ticket-card">
+                    <div class="ticket-info">
+                        <p><strong>Клиент:</strong> {{ elem.number }}</p>
+                        <p><strong>Номер заказа:</strong> {{ elem.id }}</p>
+                        <p><strong>Электронная почта:</strong> {{ elem.email2 }}</p>
+                        <p><strong>Номер телефона:</strong> {{ elem.phone2 }}</p>
+                        <p><strong>Статус:</strong> {{ elem.status }}</p>
+                    </div>
+                    {% if request.user.is_superuser %}
+                    <div class="ticket-actions">
+                        <form action="edit/{{elem.id}}/" method="post" class="status-form">
+                            {% csrf_token %}
+                            <select name="status" class="status-select">
+                                {% for status in statuses %}
+                                    <option value="{{ status.title }}" {% if elem.status.title == status.title %}selected{% endif %}>
+                                        {{ status.title }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                            <button type="submit" class="edit-link">Изменить</button>
+                        </form>
+                    </div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="line-2"></div>
+        </main>
+
+        <!-- Подвал -->
+        <footer class="footer">
+            <div class="logo">
+                <h1>VOLVO TRUCK</h1>
+            </div>
+            <div class="contact-info">
+                <h3>Volvo@gmail.com</h3>
+                <h3>+7 (968) 714-4502</h3>
+            </div>
+        </footer>
+    </div>
+</body>
+
+</html>
