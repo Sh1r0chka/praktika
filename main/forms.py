@@ -31,10 +31,29 @@ class NewTicketForm(forms.ModelForm):
         model = Ticket
         fields = ['title', 'description', 'category', 'photo']
 
-
-
-
 class TicketForm(forms.ModelForm):
     class Meta:
         model = Ticket
-        fields = ['creator', 'title', 'description', 'category', 'photo', 'status', 'created_at']
+        fields = ['status', 'rejection_reason', 'solved_image']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['rejection_reason'].required = False
+        self.fields['solved_image'].required = False
+
+        if self.instance.status.title == "Решена":
+            self.fields['status'].disabled = True
+
+class TicketStatusForm(forms.ModelForm):
+    class Meta:
+        model = Ticket
+        fields = ['status', 'rejection_reason', 'solved_image']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        if self.instance.status and self.instance.status.title == "Решена":
+            self.fields['status'].disabled = True
+
+        self.fields['rejection_reason'].required = False
+        self.fields['solved_image'].required = False

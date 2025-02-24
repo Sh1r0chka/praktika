@@ -11,46 +11,73 @@
 </head>
 
 <body>
-    <div class="wrapper">
-        <div class="bar">
+    <!-- Меню -->
+    <header class="new-menu">
+        <div class="menu-content">
+            <!-- Логотип -->
             <div class="logo">
-                <h1><a href="{% url 'index' %}">VOLVO TRUCK</a></h1>
+                <img src="{% static 'image/logo.png' %}" alt="Логотип" width="100" height="75">
             </div>
-            <div class="buttons">
-                <button><h3><a href="{% url 'login' %}">Авторизация</a></h3></button>
+
+            <!-- Кнопки меню -->
+            <div class="menu-buttons">
+                <a href="{% url 'index' %}#about" class="menu-btn">О проекте</a>
+                <a href="{% url 'add-ticket' %}" class="menu-btn">Оставить заявку</a>
+                <a href="{% url 'tickets' %}" class="menu-btn">Ваш профиль</a>
+            </div>
+
+            <!-- Кнопки -->
+            <div class="auth-buttons">
+                {% if user.is_authenticated %}
+                    <a href="{% url 'logout' %}" class="auth-btn">Выйти</a>
+                {% else %}
+                    <a href="{% url 'login' %}" class="auth-btn">Авторизация</a>
+                {% endif %}
             </div>
         </div>
+    </header>
 
-        <div class="line"></div>
 
-        <div class="text"><h1>Регистрация нового пользователя</h1></div>
+    <!-- Основной контент страницы -->
+    <div class="wrapper">
+        <div class="text"><h1>Регистрация</h1></div>
+    </div>
 
+    <div class="form-container">
+
+        <!-- Форма авторизации -->
         <form method="POST" class="signup-form my-form">
             {% csrf_token %}
             {{ form.as_p }}
-            <div class="form-block">
-                <div class="b-reg">
-                    <button class="btn"><h3>Зарегистрироваться</h3></button>
-                </div>
-                <div class="form-button">
-                    <p>Есть аккаунт? <a href="{% url 'login' %}">Авторизация</a></p>
-                </div>
+
+            <!-- Флажок "Согласие на обработку данных" -->
+            <div class="consent-checkbox">
+                <input type="checkbox" id="consent" name="consent" required>
+                <label for="consent">Согласие на обработку данных</label>
+            </div>
+
+            <div class="b-reg">
+                <button type="submit" class="btn"><h3>Зарегистрироваться</h3></button>
             </div>
         </form>
+    </div>
 
-        <!-- Подвал -->
-        <div class="footer">
-            <div class="logo">
-                <h1>VOLVO TRUCK</h1>
+    <!-- Подвал -->
+    <footer class="footer">
+        <div class="footer-content">
+            <!-- Логотип и копирайт -->
+            <div class="footer-logo">
+                <img src="{% static 'image/logo.png' %}" alt="Логотип">
+                <p class="copyright">©СЛВ 2022-2025</p>
             </div>
-            <div class="img2">
-                <h2>Volvo@gmail.com</h2>
-            </div>
-            <div class="img3">
-                <h2>+7 (968) 714-4502</h2>
+
+            <!-- Контактная информация -->
+            <div class="footer-contact">
+                <p>clv@gmail.com</p>
+                <p>+7 (968) 714-4502</p>
             </div>
         </div>
-    </div>
+    </footer>
 </body>
 
 </html>

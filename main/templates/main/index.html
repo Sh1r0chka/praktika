@@ -38,9 +38,9 @@
 
         <!-- Меню -->
         <nav class="menu">
-            <a href="#" class="menu-item">О проекте</a>
-            <a href="#" class="menu-item">Оставить заявку</a>
-            <a href="#" class="menu-item">Ваш профиль</a>
+            <a href="#about" class="menu-item">О проекте</a>
+            <a href="{% url 'add-ticket' %}" class="menu-item">Оставить заявку</a>
+            <a href="{% url 'tickets' %}" class="menu-item">Ваш профиль</a>
         </nav>
 
         <!-- Шаги для заявки -->
@@ -63,7 +63,7 @@
         </section>
 
         <!-- Баннер "О проекте" -->
-        <section class="about-banner">
+        <section class="about-banner" id="about">
             <div class="about-content">
                 <h1>Помоги нам сделать город лучше!</h1>
                 <div class="line"></div>

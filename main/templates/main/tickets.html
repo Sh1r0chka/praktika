@@ -11,74 +11,112 @@
 </head>
 
 <body>
-    <div class="wrapper">
-        <!-- Шапка -->
-        <header class="bar">
+    <!-- Новое меню -->
+    <header class="new-menu">
+        <div class="menu-content">
+            <!-- Логотип -->
             <div class="logo">
-                <h1><a href="{% url 'index' %}">VOLVO TRUCK</a></h1>
+                <img src="{% static 'image/logo.png' %}" alt="Логотип" width="100" height="75">
             </div>
-            <div class="buttons">
+
+            <!-- Кнопки меню -->
+            <div class="menu-buttons">
+                <a href="#" class="menu-btn">О проекте</a>
+                <a href="#" class="menu-btn">Оставить заявку</a>
+                <a href="#" class="menu-btn">Ваш профиль</a>
+            </div>
+
+            <!-- Кнопки авторизации/регистрации -->
+            <div class="auth-buttons">
                 {% if user.is_authenticated %}
-                    <button><a href="{% url 'index' %}">Главная</a></button>
-                    <button><a href="{% url 'logout' %}">Выйти</a></button>
+                    <a href="{% url 'logout' %}" class="auth-btn">Выйти</a>
                 {% else %}
-                    <button><a href="{% url 'login' %}">Авторизация</a></button>
-                    <button><a href="{% url 'signup' %}">Регистрация</a></button>
+                    <a href="{% url 'signup' %}" class="auth-btn">Регистрация</a>
+                    <a href="{% url 'login' %}" class="auth-btn">Авторизация</a>
                 {% endif %}
             </div>
-        </header>
+        </div>
+    </header>
 
-        <!-- Основной контент -->
-        <main class="content">
-            <div class="line"></div>
-            <div class="text">
-                <h1>Заявки</h1>
-            </div>
+    <!-- Основной контент -->
+    <main class="content">
+        <div class="line"></div>
+        <div class="text">
+            <h1>Заявки</h1>
+        </div>
 
-            <!-- Список заказов -->
-            <div class="tickets-list">
-                {% for elem in tickets %}
-                <div class="ticket-card">
-                    <div class="ticket-info">
-                        <p><strong>Клиент:</strong> {{ elem.number }}</p>
-                        <p><strong>Номер заказа:</strong> {{ elem.id }}</p>
-                        <p><strong>Электронная почта:</strong> {{ elem.email2 }}</p>
-                        <p><strong>Номер телефона:</strong> {{ elem.phone2 }}</p>
-                        <p><strong>Статус:</strong> {{ elem.status }}</p>
-                    </div>
-                    {% if request.user.is_superuser %}
-                    <div class="ticket-actions">
-                        <form action="edit/{{elem.id}}/" method="post" class="status-form">
-                            {% csrf_token %}
-                            <select name="status" class="status-select">
-                                {% for status in statuses %}
-                                    <option value="{{ status.title }}" {% if elem.status.title == status.title %}selected{% endif %}>
-                                        {{ status.title }}
-                                    </option>
-                                {% endfor %}
-                            </select>
-                            <button type="submit" class="edit-link">Изменить</button>
-                        </form>
-                    </div>
+        <!-- Список заявок -->
+        {% block content %}
+        <h1>Заявки</h1>
+        <div class="tickets-list">
+            <div class="ticket-card">
+                <div class="ticket-info">
+                    <p><strong>Название:</strong> {{ ticket.title }}</p>
+                    <p><strong>Описание:</strong> {{ ticket.description }}</p>
+                    <p><strong>Категория:</strong>
+                        {% if ticket.category %}
+                            {{ ticket.category.catgname }}
+                        {% else %}
+                            Не указана
+                        {% endif %}
+                    </p>
+                    <p><strong>Статус:</strong>
+                        {% if ticket.status %}
+                            {{ ticket.status.title }}
+                        {% else %}
+                            Не указан
+                        {% endif %}
+                    </p>
+                    <p><strong>Создано:</strong> {{ ticket.created_at }}</p>
+                    {% if ticket.rejection_reason %}
+                        <p><strong>Причина отказа:</strong> {{ ticket.rejection_reason }}</p>
+                    {% endif %}
+                    {% if ticket.solved_image %}
+                        <p><strong>Фотография решения:</strong> <img src="{{ ticket.solved_image.url }}" alt="Solved Image" width="100"></p>
                     {% endif %}
                 </div>
-                {% endfor %}
+
+                {% if request.user.is_superuser %}
+                <div class="ticket-actions">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input type="hidden" name="ticket_id" value="{{ ticket.id }}">
+                        {{ form.as_p }}
+                        <button type="submit" class="edit-link">Сохранить изменения</button>
+                    </form>
+                </div>
+                {% endif %}
+
+                {% if ticket.can_delete and ticket.creator == request.user %}
+                <div class="ticket-actions">
+                    <form action="{% url 'delete_ticket' ticket.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="delete-link">Удалить</button>
+                    </form>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endblock %}
+        </div>
+    </main>
+
+    <!-- Подвал -->
+    <footer class="footer">
+        <div class="footer-content">
+            <!-- Логотип и копирайт -->
+            <div class="footer-logo">
+                <img src="{% static 'image/logo.png' %}" alt="Логотип">
+                <p class="copyright">©СЛВ 2022-2025</p>
             </div>
 
-            <div class="line-2"></div>
-        </main>
-
-        <!-- Подвал -->
-        <footer class="footer">
-            <div class="logo">
-                <h1>VOLVO TRUCK</h1>
+            <!-- Контактная информация -->
+            <div class="footer-contact">
+                <p>clv@gmail.com</p>
+                <p>+7 (968) 714-4502</p>
             </div>
-            <div class="contact-info">
-                <h3>Volvo@gmail.com</h3>
-                <h3>+7 (968) 714-4502</h3>
-            </div>
-        </footer>
-    </div>
+        </div>
+    </footer>
 </body>
 
 </html>

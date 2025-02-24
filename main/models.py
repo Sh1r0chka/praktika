@@ -29,9 +29,14 @@ class Ticket(models.Model):
     photo = models.ImageField(upload_to='ticket_photos/', verbose_name='Фото проблемы', null=True, blank=True)
     status = models.ForeignKey('Status', on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Статус')
     created_at = models.DateTimeField(default=timezone.now, verbose_name='Дата создания')
+    rejection_reason = models.TextField(blank=True, null=True, verbose_name='Причина отказа')
+    solved_image = models.ImageField(upload_to='solved_images/', blank=True, null=True, verbose_name='Фото решения')
 
     def __str__(self):
         return f"{self.title} - {self.creator}"
+
+    def can_delete(self):
+        return self.status.title == "Новая"
 
 class Categories(models.Model):
     catgname = models.CharField(max_length=60, blank=False, default="")

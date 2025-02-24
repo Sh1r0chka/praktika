@@ -4,7 +4,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from main.forms import *
 from main.models import Ticket, Status
 from django.views.generic import DetailView, ListView
-from .models import Ticket, Status
+from django.contrib.auth.decorators import login_required
+from .forms import NewTicketForm, TicketForm
 
 
 def index(request):
@@ -43,13 +44,40 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect('login')
-
+@login_required
 def ticket_view(request):
-    tickets = Ticket.objects.all()
+    if request.user.is_superuser:
+        tickets = Ticket.objects.all()
+    else:
+        tickets = Ticket.objects.filter(creator=request.user)
+
     statuses = Status.objects.all()
-    return render(request, 'main/tickets.html', {'tickets': tickets, 'statuses': statuses})
 
+    if request.method == 'POST':
+        ticket_id = request.POST.get('ticket_id')
+        ticket = get_object_or_404(Ticket, id=ticket_id)
+        form = TicketStatusForm(request.POST, request.FILES, instance=ticket)
 
+        if form.is_valid():
+            new_status = form.cleaned_data['status']
+            if new_status.title == "Отклонена" and not form.cleaned_data['rejection_reason']:
+                form.add_error('rejection_reason', 'Укажите причину отказа')
+            elif new_status.title == "Решена" and not form.cleaned_data['solved_image']:
+                form.add_error('solved_image', 'Загрузите фотографию решения')
+            else:
+                form.save()
+                return redirect('tickets')
+    else:
+        form = TicketStatusForm()
+
+    context = {
+        'tickets': tickets,
+        'statuses': statuses,
+        'form': form,
+    }
+    return render(request, 'main/tickets.html', context)
+
+@login_required
 def add_ticket(request):
     closed_status = Status.objects.filter(title='Решена').first()
     closed_tickets_count = Ticket.objects.filter(status=closed_status).count() if closed_status else 0
@@ -74,12 +102,27 @@ def add_ticket(request):
     }
     return render(request, 'main/add-ticket.html', context)
 
+@login_required
 def edit_ticket(request, ticket_id):
     ticket = get_object_or_404(Ticket, id=ticket_id)
     if request.method == 'POST':
-        new_status_title = request.POST.get('status')
-        new_status = Status.objects.get(title=new_status_title)
-        ticket.status = new_status
-        ticket.save()
-        return redirect('tickets')
+        form = TicketForm(request.POST, request.FILES, instance=ticket)
+        if form.is_valid():
+            new_status = form.cleaned_data['status']
+            if new_status.title == "Отклонена" and not form.cleaned_data['rejection_reason']:
+                form.add_error('rejection_reason', 'Укажите причину отказа')
+            elif new_status.title == "Решена" and not form.cleaned_data['solved_image']:
+                form.add_error('solved_image', 'Загрузите фотографию решения')
+            else:
+                form.save()
+                return redirect('tickets')
+    else:
+        form = TicketForm(instance=ticket)
+    return render(request, 'main/edit-ticket.html', {'form': form, 'ticket': ticket})
+
+@login_required
+def delete_ticket(request, ticket_id):
+    ticket = get_object_or_404(Ticket, id=ticket_id)
+    if ticket.can_delete() and ticket.creator == request.user:
+        ticket.delete()
     return redirect('tickets')
