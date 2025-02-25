@@ -90,6 +90,7 @@ body {
     font-size: 36px;
     color: #333;
     margin-bottom: 20px;
+    text-align: center;
 }
 
 .form-container {
@@ -145,6 +146,7 @@ body {
     background: #7a9970;
 }
 
+
 /* Контейнер для формы и счётчика */
 .form-container {
     display: flex;
@@ -198,6 +200,26 @@ body {
     color: #666;
 }
 
+/* Стили для флажка согласия */
+.consent-checkbox {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.consent-checkbox input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.consent-checkbox label {
+    font-size: 16px;
+    color: #333;
+    cursor: pointer;
+}
+
 /* Стили для текстового блока */
 .text-section {
     display: flex;
@@ -226,71 +248,97 @@ body {
     margin-top: 20px; /* Отступ сверху */
 }
 
-/* Стили для формы */
-.signup-form {
-    flex: 1;
+
+/* Основные стили для карточки заявки */
+.ticket-card {
+    display: grid;
+    grid-template-columns: 1fr 250px;
+    gap: 20px;
     background: white;
-    padding: 30px;
-    border-radius: 20px;
+    border-radius: 15px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    max-width: 1440px;
+    margin: 0 auto;
+    margin-bottom: 50px;
 }
 
-.signup-form p {
-    margin-bottom: 10px;
+.ticket-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
-.signup-form label {
-    font-size: 18px;
-    color: #333;
-    display: block;
-    margin-bottom: 5px;
-}
+/* Левая часть: Основная информация */
+.ticket-info {}
 
-.signup-form input,
-.signup-form textarea,
-.signup-form select {
-    width: 100%;
-    padding: 10px;
+.ticket-info p {
+    margin: 10px 0;
     font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    margin-bottom: 10px;
+    color: #333;
 }
 
-.signup-form button {
-    width: 100%;
-    padding: 15px;
-    font-size: 18px;
-    background: #95B184;
-    color: white;
+.ticket-info strong {
+    color: #95B184;
+    font-weight: bold;
+}
+
+.ticket-info img {
+    border-radius: 10px;
+    margin-top: 10px;
+    max-width: 100%;
+    height: auto;
+}
+
+/* Правая часть: Функционал */
+.ticket-actions {
+    position: relative;
+    left: -80px;
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+}
+
+.ticket-actions button,
+.ticket-actions .edit-link {
+    padding: 10px 20px;
+    font-size: 14px;
     border: none;
     border-radius: 10px;
     cursor: pointer;
     transition: background 0.3s ease;
+    text-align: center;
 }
 
-.signup-form button:hover {
+.ticket-actions button {
+    background: #ff4d4d;
+    color: white;
+}
+
+.ticket-actions button:hover {
+    background: #cc0000;
+}
+
+.ticket-actions .edit-link {
+    background: #95B184;
+    color: white;
+    text-decoration: none;
+}
+
+.ticket-actions .edit-link:hover {
     background: #7a9970;
 }
 
-/* Стили для флажка согласия */
-.consent-checkbox {
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
+/* Адаптивные стили */
+@media (max-width: 720px) {
+    .ticket-card {
+        grid-template-columns: 1fr;
+    }
 
-.consent-checkbox input[type="checkbox"] {
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-}
-
-.consent-checkbox label {
-    font-size: 16px;
-    color: #333;
-    cursor: pointer;
+    .ticket-actions {
+        left: 0;
+        width: 100%;
+    }
 }
 
 /* Основные стили для подвала */
@@ -306,6 +354,7 @@ body {
     align-items: center;
     color: white;
     padding: 20px 0;
+    margin-top: auto;
 }
 
 /* Затемнение фона */

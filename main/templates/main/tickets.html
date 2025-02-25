@@ -7,7 +7,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/ticket.css' %}">
-    <title>{% block title %}{% endblock %}</title>
+    <title>Заявки</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
@@ -16,15 +17,17 @@
         <div class="menu-content">
             <!-- Логотип -->
             <div class="logo">
-                <img src="{% static 'image/logo.png' %}" alt="Логотип" width="100" height="75">
+                <a href="{% url 'index' %}">
+                    <img src="{% static 'image/logo.png' %}" alt="Логотип" width="160" height="120">
+                </a>
             </div>
 
             <!-- Кнопки меню -->
-            <div class="menu-buttons">
-                <a href="#" class="menu-btn">О проекте</a>
-                <a href="#" class="menu-btn">Оставить заявку</a>
-                <a href="#" class="menu-btn">Ваш профиль</a>
-            </div>
+            <nav class="menu">
+                <a href="{% url 'index' %}#about" class="auth-btn">О проекте</a>
+                <a href="{% url 'add-ticket' %}" class="auth-btn">Оставить заявку</a>
+                <a href="{% url 'tickets' %}" class="auth-btn">Ваш профиль</a>
+            </nav>
 
             <!-- Кнопки авторизации/регистрации -->
             <div class="auth-buttons">
@@ -40,16 +43,15 @@
 
     <!-- Основной контент -->
     <main class="content">
-        <div class="line"></div>
         <div class="text">
             <h1>Заявки</h1>
         </div>
 
         <!-- Список заявок -->
-        {% block content %}
-        <h1>Заявки</h1>
         <div class="tickets-list">
-            <div class="ticket-card">
+            {% for ticket in tickets|dictsortreversed:"created_at" %}
+            <div class="ticket-card" id="ticket-{{ ticket.id }}">
+                <!-- Левая часть: Основная информация -->
                 <div class="ticket-info">
                     <p><strong>Название:</strong> {{ ticket.title }}</p>
                     <p><strong>Описание:</strong> {{ ticket.description }}</p>
@@ -62,7 +64,7 @@
                     </p>
                     <p><strong>Статус:</strong>
                         {% if ticket.status %}
-                            {{ ticket.status.title }}
+                            <span class="status {{ ticket.status.title|lower }}">{{ ticket.status.title }}</span>
                         {% else %}
                             Не указан
                         {% endif %}
@@ -76,28 +78,23 @@
                     {% endif %}
                 </div>
 
-                {% if request.user.is_superuser %}
+                <!-- Правая часть: Функционал -->
                 <div class="ticket-actions">
-                    <form method="post" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        <input type="hidden" name="ticket_id" value="{{ ticket.id }}">
-                        {{ form.as_p }}
-                        <button type="submit" class="edit-link">Сохранить изменения</button>
-                    </form>
-                </div>
-                {% endif %}
+                    {% if request.user.is_superuser %}
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <input type="hidden" name="ticket_id" value="{{ ticket.id }}">
+                            {{ form.as_p }}
+                            <button type="submit" class="edit-link">Сохранить изменения</button>
+                        </form>
+                    {% endif %}
 
-                {% if ticket.can_delete and ticket.creator == request.user %}
-                <div class="ticket-actions">
-                    <form action="{% url 'delete_ticket' ticket.id %}" method="post">
-                        {% csrf_token %}
-                        <button type="submit" class="delete-link">Удалить</button>
-                    </form>
+                    {% if ticket.can_delete and ticket.creator == request.user %}
+                        <button class="delete-link" onclick="deleteTicket({{ ticket.id }})">Удалить</button>
+                    {% endif %}
                 </div>
-                {% endif %}
             </div>
-        </div>
-        {% endblock %}
+            {% endfor %}
         </div>
     </main>
 
@@ -117,6 +114,30 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        function deleteTicket(ticketId) {
+            if (confirm('Вы уверены, что хотите удалить эту заявку?')) {
+                $.ajax({
+                    url: `/tickets/delete/${ticketId}/`,
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            $(`#ticket-${ticketId}`).remove();
+                        } else {
+                            alert(response.error || 'Ошибка при удалении заявки');
+                        }
+                    },
+                    error: function() {
+                        alert('Ошибка при отправке запроса');
+                    }
+                });
+            }
+        }
+    </script>
 </body>
 
 </html>

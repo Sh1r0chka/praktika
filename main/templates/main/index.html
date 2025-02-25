@@ -15,9 +15,10 @@
             <div class="banner-content">
                 <!-- Логотип -->
                 <div class="logo">
-                    <img src="{% static 'image/logo.png' %}" alt="Логотип" width="160" height="120">
+                    <a href="{% url 'index' %}">
+                        <img src="{% static 'image/logo.png' %}" alt="Логотип" width="160" height="120">
+                    </a>
                 </div>
-
                 <!-- Кнопки для авторизации/регистрации или выхода -->
                 <div class="auth-buttons">
                     {% if user.is_authenticated %}
@@ -106,7 +107,10 @@
                         <!-- Правая картинка -->
                         <div class="problem-image">
                             <!-- Выводим фото, если оно есть -->
-                            <img src="{{ problem.photo.url }}" alt="Фото проблемы" width="560" height="300">
+                            <div class="problem-image">
+                                <img src="{{ problem.photo.url }}" alt="Фото проблемы" class="problem-img">
+                                <img src="{{ problem.solved_image.url }}" alt="Фото решения" class="solution-img">
+                            </div>
                         </div>
                     </div>
                 {% endfor %}

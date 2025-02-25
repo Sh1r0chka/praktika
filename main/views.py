@@ -6,6 +6,8 @@ from main.models import Ticket, Status
 from django.views.generic import DetailView, ListView
 from django.contrib.auth.decorators import login_required
 from .forms import NewTicketForm, TicketForm
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
 
 
 def index(request):
@@ -121,8 +123,14 @@ def edit_ticket(request, ticket_id):
     return render(request, 'main/edit-ticket.html', {'form': form, 'ticket': ticket})
 
 @login_required
+@require_POST
 def delete_ticket(request, ticket_id):
-    ticket = get_object_or_404(Ticket, id=ticket_id)
-    if ticket.can_delete() and ticket.creator == request.user:
-        ticket.delete()
-    return redirect('tickets')
+    try:
+        ticket = get_object_or_404(Ticket, id=ticket_id)
+        if ticket.creator == request.user and ticket.can_delete():
+            ticket.delete()
+            return JsonResponse({'success': True})
+        else:
+            return JsonResponse({'success': False, 'error': 'Нельзя удалить эту заявку'})
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})

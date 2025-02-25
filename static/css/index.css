@@ -387,18 +387,36 @@ body {
 
 /* Стили для problem-image */
 .problem-image {
-    flex-shrink: 0;
+    position: relative;
     width: 560px;
     height: 300px;
-    margin: 30px 30px 30px 0;
-    border-radius: 10px;
     overflow: hidden;
+    border-radius: 10px;
 }
 
-.problem-image img {
+.problem-img,
+.solution-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.solution-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+}
+
+.problem-image:hover .problem-img {
+    transform: scale(1.1);
+    opacity: 0;
+}
+
+.problem-image:hover .solution-img {
+    opacity: 1;
+    transform: scale(1.1);
 }
 
 /* Основные стили для подвала */

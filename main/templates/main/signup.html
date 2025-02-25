@@ -16,14 +16,16 @@
         <div class="menu-content">
             <!-- Логотип -->
             <div class="logo">
-                <img src="{% static 'image/logo.png' %}" alt="Логотип" width="100" height="75">
+                <a href="{% url 'index' %}">
+                    <img src="{% static 'image/logo.png' %}" alt="Логотип" width="160" height="120">
+                </a>
             </div>
 
             <!-- Кнопки меню -->
             <div class="menu-buttons">
-                <a href="{% url 'index' %}#about" class="menu-btn">О проекте</a>
-                <a href="{% url 'add-ticket' %}" class="menu-btn">Оставить заявку</a>
-                <a href="{% url 'tickets' %}" class="menu-btn">Ваш профиль</a>
+                <a href="{% url 'index' %}#about" class="auth-btn">О проекте</a>
+                <a href="{% url 'add-ticket' %}" class="auth-btn">Оставить заявку</a>
+                <a href="{% url 'tickets' %}" class="auth-btn">Ваш профиль</a>
             </div>
 
             <!-- Кнопки -->
